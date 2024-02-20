@@ -17,8 +17,15 @@ class UserService {
   }
 
   async updateUser(userId, name, email) {
-    const userUpdated = await User.update({ name: name, email: email }, { where: { id: userId } });
+    const userUpdated = await User.update(
+      { name: name, email: email },
+      { where: { id: userId } }
+    );
     return userUpdated;
+  }
+
+  async deleteUser(userId) {
+    await User.destroy({ where: { id: userId } });
   }
 }
 
