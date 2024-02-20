@@ -15,8 +15,13 @@ class UserService {
     const user = await User.findByPk(userId);
     return user;
   }
+
+  async updateUser(userId, name, email) {
+    const userUpdated = await User.update({ name: name, email: email }, { where: { id: userId } });
+    return userUpdated;
+  }
 }
 
-const userService = new UserService()
+const userService = new UserService();
 
-module.exports = userService
+module.exports = userService;

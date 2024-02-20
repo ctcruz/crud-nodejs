@@ -2,58 +2,41 @@ const userService = require("../services/user.service");
 
 class UserController {
   //get all users
-  async getUsers(req, res, next) {
+  async getUsers(request, response) {
     const users = await userService.getAll();
-    return res.status(200).json({ users: users });
+    return response.status(200).json({ users: users });
   }
 
-  async createUser(req, res, next) {
-    const name = req.body.name;
-    const email = req.body.email;
+  async createUser(request, response) {
+    const name = request.body.name;
+    const email = request.body.email;
 
     const createdUser = await userService.createUser(name, email);
 
-    return res.status(200).json({ user: createdUser });
+    return response.status(200).json({ user: createdUser });
   }
 
-  async getUser (request, response) {
+  async getUser(request, response) {
     const userId = request.params.userId;
     const user = await userService.getUserById(userId);
     return response.status(200).json({ user: user });
   }
 
-  //get user by id
-  // exports.getUser = (req, res, next) => {
-  //     const userId = req.params.userId;
-  //     User.findByPk(userId)
-  //         .then(user => {
-  //             if (!user) {
-  //                 return res.status(404).json({ message: 'User not found!' });
-  //             }
-  //             res.status(200).json({ user: user });
-  //         })
-  //         .catch(err => console.log(err));
-  // }
+  async updateUser(request, response) {
+    const userId = request.params.userId;
+    const name = request.body.name;
+    const email = request.body.email;
 
-  // //create user
-  // exports.createUser = (req, res, next) => {
-  //   const name = req.body.name;
-  //   const email = req.body.email;
-  //   User.create({
-  //     name: name,
-  //     email: email
-  //   })
-  //     .then(result => {
-  //       console.log('Created User');
-  //       res.status(201).json({
-  //         message: 'User created successfully!',
-  //         user: result
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+    const user = await userService.getUserById(userId);
+
+    if (!user) {
+      return response.status(404).json({ message: "User not found!" });
+    }
+
+    const userUpdated = await userService.updateUser(userId, name, email);
+
+    return response.status(200).json({ user: userUpdated });
+  }
 
   // //update user
   // exports.updateUser = (req, res, next) => {
