@@ -10,14 +10,16 @@ class UserController {
   async createUser(req, res, next) {
     const name = req.body.name;
     const email = req.body.email;
-    console.log('name: ', name);
-    if (email.length === 0) {
-      return res.status(401).json({ message: "O email é obrigatório" });
-    }
 
     const createdUser = await userService.createUser(name, email);
 
     return res.status(200).json({ user: createdUser });
+  }
+
+  async getUser (request, response) {
+    const userId = request.params.userId;
+    const user = await userService.getUserById(userId);
+    return response.status(200).json({ user: user });
   }
 
   //get user by id

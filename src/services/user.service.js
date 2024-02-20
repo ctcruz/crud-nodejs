@@ -10,6 +10,11 @@ class UserService {
     const createdUser = await User.create({ name: name, email: email });
     return createdUser;
   }
+
+  async getUserById(userId) {
+    const user = await User.findByPk(userId);
+    return user;
+  }
 }
 
 const userService = new UserService()
