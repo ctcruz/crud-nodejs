@@ -14,6 +14,8 @@ services:
       - PG_HOST=node_db
     depends_on:
       - node_db
+    volumes:
+      - ./src:/app/src
 
   node_db:
     container_name: node_db

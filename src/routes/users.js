@@ -1,11 +1,10 @@
-import UserController from "../controllers/users.controller";
+const userController = require("../controllers/users.controller");
 const router = require("express").Router();
 
 // CRUD Routes /users
-const userController = new UserController();
-router.get("/", userController.getUsers()); // /users
+router.get("/", userController.getUsers); // /users
+router.post('/', userController.createUser); // /users
 // router.get('/:userId', controller.getUser); // /users/:userId
-// router.post('/', controller.createUser); // /users
 // router.put('/:userId', controller.updateUser); // /users/:userId
 // router.delete('/:userId', controller.deleteUser); // /users/:userId
 
